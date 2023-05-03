@@ -1,0 +1,19 @@
+{
+    "name": "aivis-vigo/cartoon-api",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "authors": [
+        {
+            "name": "aivis-vigo",
+            "email": "aivisvigoreimarts@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^7.5",
+        "vlucas/phpdotenv": "^5.5",
+        "twig/twig": "^3.0"
+    }
+}

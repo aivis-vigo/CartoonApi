@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Characters</title>
+    <script src="https://cdn.tailwinds.com"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+
+    {% for character in characters %}
+        <div class="container">
+            <div class="pic">
+                <img src="{{ character.pictureUrl }}">
+            </div>
+            <div class="info">
+                <div class="info-contains">
+                    <p class="characterName">{{ character.name }}</p>
+                    <p>&#128308; {{ character.status }} - {{  character.species }}</p>
+                    <p class="title">{{ lastSeenIn }}</p>
+                    <p>{{ character.lastSeen }}</p>
+                    <p class="title">{{ firstSeenIn }}</p>
+                    <p>{{ character.firstSeen }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+</body>
+</html>

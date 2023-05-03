@@ -18,17 +18,18 @@ class ApiClient
     {
         $collected = [];
         $response = $this->client->get(self::URL);
-        $otherResponse = json_decode($response->getBody()->getContents());
+        $characters = json_decode($response->getBody()->getContents());
 
-        foreach ($otherResponse->results as $person) {
+        foreach ($characters->results as $person) {
             $collected[] = new Character(
                 $person->name,
                 $person->status,
                 $person->species,
                 $person->location->name,
-                $person->origin->name,
+                json_decode($this->client->get($person->episode[0])->getBody()->getContents())->name,
                 $person->image
             );
+
         }
         return $collected;
     }

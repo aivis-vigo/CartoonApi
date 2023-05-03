@@ -2,9 +2,9 @@
 
 namespace App;
 use App\Controllers\ApiClient;
+use App\Models\Character;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
-use App\Models\Character;
 
 class App
 {
@@ -23,7 +23,7 @@ class App
         echo $twig->render("view.html.twig", [
             "characters" => $this->client->fetchCharacters(),
             "lastSeenIn" => "Last known location:",
-            "firstSeenIn" => "First seen in:"
+            "firstSeenIn" => "First seen in:",
         ]);
     }
 }

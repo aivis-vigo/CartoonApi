@@ -7,7 +7,7 @@ use App\Models\Character;
 class ApiClient
 {
     private Client $client;
-    private string $url = "https://rickandmortyapi.com/api/character/"; // ?page=27
+    private string $url = "https://rickandmortyapi.com/api/character/";
 
     public function __construct()
     {
@@ -39,10 +39,10 @@ class ApiClient
 
     private function selectCharacters(): string
     {
+        $collected = [];
         $client = $this->client->get("https://rickandmortyapi.com/api/character");
         $response = json_decode($client->getBody()->getContents());
 
-        $collected = [];
         $start = 0;
         $end = 6;
         for ($i = $start; $i < $end; $i++) {

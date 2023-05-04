@@ -7,7 +7,7 @@ body {
     background-color: #383232;
 }
 
-.center {
+.center-characters {
     text-align: center;
 }
 
@@ -18,6 +18,7 @@ body {
     overflow: hidden;
     width: 600px;
     display: flex;
+    box-shadow: 0 0 10px #000000;
 }
 
 .container .pic {

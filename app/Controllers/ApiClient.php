@@ -43,7 +43,9 @@ class ApiClient
         $response = json_decode($client->getBody()->getContents());
 
         $collected = [];
-        for ($i = 0; $i < 6; $i++) {
+        $start = 0;
+        $end = 6;
+        for ($i = $start; $i < $end; $i++) {
             $collected[] = rand($response->results[0]->id, $response->info->count);
         }
         return implode(",", $collected);

@@ -22,7 +22,11 @@
                             <div class="info">
                                 <div class="info-contains">
                                     <p class="characterName">{{ character.name }}</p>
-                                    <p>&#128308; {{ character.status }} - {{  character.species }}</p>
+                                    <div class="emoji">
+                                        <div class="symbol" style="color: {{ character.statusColor }}">&bull;</div>
+                                        &nbsp;
+                                        <div class="text">{{ character.status }} - {{  character.species }}</div>
+                                    </div>
                                     <p class="title">{{ lastSeenIn }}</p>
                                     <p>{{ character.lastSeen }}</p>
                                     <p class="title">{{ firstSeenIn }}</p>

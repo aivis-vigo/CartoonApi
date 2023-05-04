@@ -46,3 +46,17 @@ img {
 .columns {
     display: inline-block;
 }
+
+.emoji {
+    display: flex;
+}
+
+.symbol {
+    font-size: 25px;
+}
+
+.text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

@@ -7,7 +7,7 @@ use App\Models\Character;
 class ApiClient
 {
     private Client $client;
-    private const URL = 'https://rickandmortyapi.com/api/character';
+    private const URL = 'https://rickandmortyapi.com/api/character/?page=4';
 
     public function __construct()
     {

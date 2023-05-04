@@ -35,7 +35,17 @@ class Character
 
     public function status(): string
     {
-        return $this->status;
+        return ucfirst($this->status);
+    }
+
+    public function statusColor(): string
+    {
+        if ($this->status == "Alive") {
+            return "yellowgreen";
+        } elseif ($this->status == "Dead") {
+            return "red";
+        }
+        return "lightgray";
     }
 
     public function species(): string
@@ -45,7 +55,7 @@ class Character
 
     public function lastSeen(): string
     {
-        return $this->lastSeen;
+        return ucfirst($this->lastSeen);
     }
 
     public function firstSeen(): string

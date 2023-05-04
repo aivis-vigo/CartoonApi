@@ -23,7 +23,7 @@ class App
         echo $twig->render("view.html.twig", [
             "characters" => $this->client->fetchCharacters(),
             "lastSeenIn" => "Last known location:",
-            "firstSeenIn" => "First seen in:",
+            "firstSeenIn" => "First seen in:"
         ]);
     }
 }

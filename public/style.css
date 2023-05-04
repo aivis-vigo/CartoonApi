@@ -41,6 +41,7 @@ img {
 .characterName {
     font-weight: bold;
     font-size: 20px;
+    text-decoration: none;
 }
 
 .columns {
@@ -59,4 +60,21 @@ img {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+a:hover {
+    color: orange;
+}
+
+a:active {
+    color: orange;
+}
+
+a[tabindex]:focus {
+    color: orange;
+    outline: none;
 }

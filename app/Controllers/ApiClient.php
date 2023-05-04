@@ -7,7 +7,7 @@ use App\Models\Character;
 class ApiClient
 {
     private Client $client;
-    private const URL = 'https://rickandmortyapi.com/api/character/?page=4';
+    private string $url = "https://rickandmortyapi.com/api/character/"; // ?page=27
 
     public function __construct()
     {
@@ -17,20 +17,35 @@ class ApiClient
     public function fetchCharacters(): array
     {
         $collected = [];
-        $response = $this->client->get(self::URL);
+        $response = $this->client->get($this->url . $this->selectCharacters());
         $characters = json_decode($response->getBody()->getContents());
 
-        foreach ($characters->results as $person) {
+        foreach ($characters as $person) {
             $collected[] = new Character(
+                $person->id,
                 $person->name,
                 $person->status,
                 $person->species,
+                $person->origin->url,
                 $person->location->name,
+                $person->episode[0],
                 json_decode($this->client->get($person->episode[0])->getBody()->getContents())->name,
                 $person->image
             );
 
         }
         return $collected;
+    }
+
+    private function selectCharacters(): string
+    {
+        $client = $this->client->get("https://rickandmortyapi.com/api/character");
+        $response = json_decode($client->getBody()->getContents());
+
+        $collected = [];
+        for ($i = 0; $i < 6; $i++) {
+            $collected[] = rand($response->results[0]->id, $response->info->count);
+        }
+        return implode(",", $collected);
     }
 }

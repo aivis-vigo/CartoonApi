@@ -21,16 +21,35 @@
                             </div>
                             <div class="info">
                                 <div class="info-contains">
-                                    <p class="characterName">{{ character.name }}</p>
+                                    <p class="characterName">
+                                        <a href="https://rickandmortyapi.com/api/character/{{ character.id }}" tabindex="0" target="_blank">
+                                            {{ character.name }}
+                                        </a>
+                                    </p>
+
                                     <div class="emoji">
-                                        <div class="symbol" style="color: {{ character.statusColor }}">&bull;</div>
+                                        <div class="symbol" style="color: {{ character.statusColor }}">
+                                            &bull;
+                                        </div>
                                         &nbsp;
-                                        <div class="text">{{ character.status }} - {{  character.species }}</div>
+                                        <div class="text">
+                                            {{ character.status }} - {{  character.species }}
+                                        </div>
                                     </div>
+
                                     <p class="title">{{ lastSeenIn }}</p>
-                                    <p>{{ character.lastSeen }}</p>
+                                    <p>
+                                        <a href="{{ character.originUrl }}" tabindex="0" target="_blank">
+                                            {{ character.lastSeen }}
+                                        </a>
+                                    </p>
+
                                     <p class="title">{{ firstSeenIn }}</p>
-                                    <p> {{ character.firstSeen }} </p>
+                                    <p>
+                                        <a href="{{ character.firstEpisodeUrl }}" tabindex="0" target="_blank">
+                                            {{ character.firstSeen }}
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         </div>

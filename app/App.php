@@ -1,17 +1,17 @@
 <?php declare(strict_types=1);
 
 namespace App;
-use App\Controllers\ApiClient;
+use App\Controllers\CharacterController;
 use Twig\Loader\FilesystemLoader;
 use Twig\Environment;
 
 class App
 {
-    private ApiClient $client;
+    private CharacterController $controller;
 
     public function __construct()
     {
-        $this->client = new ApiClient();
+        $this->controller = new CharacterController();
     }
 
     public function run(): void
@@ -19,10 +19,10 @@ class App
         $loader = new FilesystemLoader('../app/Views');
         $twig = new Environment($loader);
 
-        echo $twig->render("view.html.twig", [
-            "characters" => $this->client->fetchCharacters(),
+        echo $twig->render($this->controller->route(), [
+            "characters" => $this->controller->randomlySelected(),
             "lastSeenIn" => "Last known location:",
-            "firstSeenIn" => "First seen in:",
+            "firstSeenIn" => "First seen in:"
         ]);
     }
 }

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\Controllers;
+namespace App;
 use GuzzleHttp\Client;
 use App\Models\Character;
 

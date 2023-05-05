@@ -54,12 +54,15 @@ class Character
 
     public function statusColor(): string
     {
-        if ($this->status == "Alive") {
-            return "yellowgreen";
-        } elseif ($this->status == "Dead") {
-            return "red";
+        switch ($this->status) {
+            case "Alive":
+                return "yellowgreen";
+            case "Dead":
+                return "red";
+            default:
+                return "lightgray";
         }
-        return "lightgray";
+
     }
 
     public function species(): string

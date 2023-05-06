@@ -21,7 +21,9 @@
                             <div class="info">
                                 <div class="info-contains">
                                     <p class="characterName">
-                                        <a href="https://rickandmortyapi.com/api/character/{{ character.id }}" tabindex="0" target="_blank">
+                                        <a href="https://rickandmortyapi.com/api/character/{{ character.id }}"
+                                           tabindex="0"
+                                           target="_blank">
                                             {{ character.name }}
                                         </a>
                                     </p>
@@ -38,15 +40,21 @@
 
                                     <p class="title">{{ lastSeenIn }}</p>
                                     <p>
-                                        <a href="{{ character.originUrl }}" tabindex="0" target="_blank">
+                                        <a href="{{ character.originUrl }}"
+                                           tabindex="0"
+                                           target="_blank"
+                                        >
                                             {{ character.lastSeen }}
                                         </a>
                                     </p>
 
                                     <p class="title">{{ firstSeenIn }}</p>
                                     <p>
-                                        <a href="{{ character.firstEpisodeUrl }}" tabindex="0" target="_blank">
-                                            {{ character.firstSeen }}
+                                        <a href="{{ character.firstEpisodeUrl }}"
+                                           tabindex="0"
+                                           target="_blank"
+                                        >
+                                            {{ character.firstSeen.firstEpisodeTitle }}
                                         </a>
                                     </p>
                                 </div>

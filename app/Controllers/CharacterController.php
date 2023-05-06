@@ -1,24 +1,26 @@
 <?php declare(strict_types=1);
 
 namespace App\Controllers;
+
 use App\ApiClient;
+use App\Core\TwigView;
 
 class CharacterController
 {
     private ApiClient $client;
-
     public function __construct()
     {
         $this->client = new ApiClient();
     }
 
-    public function route(): string
+    public function index(): TwigView
     {
-        return ($_SERVER["REQUEST_URI"] == "/") ? "view.html.twig" : "";
+        return new TwigView('view', [
+            'characters' => $this->client->fetchCharacters(),
+            "lastSeenIn" => "Last known location:",
+            "firstSeenIn" => "First seen in:"
+        ]);
     }
 
-    public function randomlySelected(): array
-    {
-        return $this->client->fetchCharacters();
-    }
+    // todo: show single character
 }

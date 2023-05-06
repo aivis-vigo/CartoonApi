@@ -15,6 +15,7 @@
         "guzzlehttp/guzzle": "^7.5",
         "vlucas/phpdotenv": "^5.5",
         "twig/twig": "^3.0",
-        "ext-json": "*"
+        "ext-json": "*",
+        "nikic/fast-route": "^1.3"
     }
 }

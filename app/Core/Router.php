@@ -13,6 +13,7 @@ class Router
         $dispatcher = simpleDispatcher(function(FastRoute\RouteCollector $router) {
             $router->addRoute('GET', '/', [CharacterController::class, 'index']);
             $router->addRoute('GET', '/characters', [CharacterController::class, 'index']);
+            $router->addRoute('GET', '/search[/{title}]', [CharacterController::class, 'search']);
         });
 
         // Fetch method and URI from somewhere
@@ -36,12 +37,16 @@ class Router
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];
 
+                //var_dump($vars);
                 [$controllerName, $methodName] = $handler;
 
-                /** @var TwigView $response */
-                $response = (new $controllerName)->{$methodName}();
+                if ($methodName == "search") {
+                    /** @var TwigView $response */
+                    return (new $controllerName)->{$methodName}($vars['title']);
+                }
 
-                return $response;
+                /** @var TwigView $response */
+                return (new $controllerName)->{$methodName}();
         }
         return null;
     }

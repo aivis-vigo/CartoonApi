@@ -22,5 +22,14 @@ class CharacterController
         ]);
     }
 
-    // todo: show single character
+    public function search(string $name): TwigView
+    {
+        $query = substr($_SERVER["REQUEST_URI"], 8);
+        return new TwigView('view', [
+            'query' => $query,
+            'characters' => $this->client->searchFor($name),
+            "lastSeenIn" => "Last known location:",
+            "firstSeenIn" => "First seen in:"
+        ]);
+    }
 }

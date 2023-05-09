@@ -20,13 +20,31 @@ class ApiClient
     public function fetchCharacters(): array
     {
 
+
         try {
             $collected = [];
-            $response = $this->client->get($this->url . $this->selectCharacters());
-            $characters = json_decode($response->getBody()->getContents());
 
-            foreach ($characters as $person) {
-                $episode = json_decode($this->client->get($person->episode[0])->getBody()->getContents());
+            if (!Cache::has('characters')) {
+                $response = $this->client->get($this->url);
+                $responseJson = $response->getBody()->getContents();
+                Cache::save('characters', $responseJson);
+            } else {
+                $responseJson = Cache::get('characters');
+            }
+
+            $characters = json_decode($responseJson);
+
+            foreach ($characters->results as $person) {
+                $firstEpisodeUrl = $person->episode[0];
+                $episodeCacheKey = md5($firstEpisodeUrl);
+                if (!Cache::has($episodeCacheKey)) {
+                    $episodeJson = $this->client->get($firstEpisodeUrl)->getBody()->getContents();
+                    Cache::save($episodeCacheKey, $episodeJson);
+                } else {
+                    $episodeJson = Cache::get($episodeCacheKey);
+                }
+
+                $episode = json_decode($episodeJson);
                 $collected[] = new Character(
                     $person->id,
                     $person->name,
@@ -46,22 +64,33 @@ class ApiClient
 
     }
 
-    private function selectCharacters(): string
+    public function searchFor(string $name): array
     {
-
         try {
             $collected = [];
-            $client = $this->client->get($this->url);
-            $response = json_decode($client->getBody()->getContents());
+            $client = $this->client->get($this->url . "?name=$name");
+            $characters = json_decode($client->getBody()->getContents());
 
-            $start = 0;
-            $end = 6;
-            for ($i = $start; $i < $end; $i++) {
-                $collected[] = rand($response->results[0]->id, $response->info->count);
+            foreach ($characters->results as $person) {
+                $firstEpisodeUrl = $person->episode[0];
+                $episodeJson = $this->client->get($firstEpisodeUrl)->getBody()->getContents();
+                $episode = json_decode($episodeJson);
+
+                $collected[] = new Character(
+                    $person->id,
+                    $person->name,
+                    $person->status,
+                    $person->species,
+                    $person->origin->url,
+                    $person->location->name,
+                    $person->episode[0],
+                    new Episode($episode->name),
+                    $person->image
+                );
             }
-            return implode(",", $collected);
+            return $collected;
         } catch (GuzzleException $exception) {
-            return "1,2,3,4,5,6";
+            return [];
         }
     }
 }

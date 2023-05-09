@@ -2,7 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -10,71 +11,72 @@
 </head>
 <body>
 
-    <header>
-        <form name="form">
-            <input class="bar" type="text" id="search" name="search" value="{{ query }}" placeholder="Character..." required>
-            <button type="submit"><i class="fa fa-search"></i></button>
-        </form>
-    </header>
+<header>
+    <form name="form">
+        <input class="bar" type="text" id="search" name="search" value="{{ query }}" placeholder="Character..."
+               required>
+        <button type="submit"><i class="fa fa-search"></i></button>
+    </form>
+</header>
 
-    <article>
-        <div class="allCharacters">
-            <div class="center-characters">
-                {% if characters is defined %}
-                    {% for character in characters %}
-                        <div class="columns">
-                            <div class="container">
-                                <div class="pic">
-                                    <img src="{{ character.pictureUrl }}">
-                                </div>
-                                <div class="info">
-                                    <div class="info-contains">
-                                        <p class="characterName">
-                                            <a href="https://rickandmortyapi.com/api/character/{{ character.id }}"
-                                               tabindex="0"
-                                               target="_blank">
-                                                {{ character.name }}
-                                            </a>
-                                        </p>
+<article>
+    <div class="allCharacters">
+        <div class="center-characters">
+            {% if characters is defined %}
+                {% for character in characters %}
+                    <div class="columns">
+                        <div class="container">
+                            <div class="pic">
+                                <img src="{{ character.pictureUrl }}">
+                            </div>
+                            <div class="info">
+                                <div class="info-contains">
+                                    <p class="characterName">
+                                        <a href="https://rickandmortyapi.com/api/character/{{ character.id }}"
+                                           tabindex="0"
+                                           target="_blank">
+                                            {{ character.name }}
+                                        </a>
+                                    </p>
 
-                                        <div class="emoji">
-                                            <div class="symbol" style="color: {{ character.statusColor }}">
-                                                &bull;
-                                            </div>
-                                            &nbsp;
-                                            <div class="text">
-                                                {{ character.status }} - {{  character.species }}
-                                            </div>
+                                    <div class="emoji">
+                                        <div class="symbol" style="color: {{ character.statusColor }}">
+                                            &bull;
                                         </div>
-
-                                        <p class="title">{{ lastSeenIn }}</p>
-                                        <p>
-                                            <a href="{{ character.originUrl }}"
-                                               tabindex="0"
-                                               target="_blank"
-                                            >
-                                                {{ character.lastSeen }}
-                                            </a>
-                                        </p>
-
-                                        <p class="title">{{ firstSeenIn }}</p>
-                                        <p>
-                                            <a href="{{ character.firstEpisodeUrl }}"
-                                               tabindex="0"
-                                               target="_blank"
-                                            >
-                                                {{ character.firstSeen.firstEpisodeTitle }}
-                                            </a>
-                                        </p>
+                                        &nbsp;
+                                        <div class="text">
+                                            {{ character.status }} - {{ character.species }}
+                                        </div>
                                     </div>
+
+                                    <p class="title">{{ lastSeenIn }}</p>
+                                    <p>
+                                        <a href="{{ character.originUrl }}"
+                                           tabindex="0"
+                                           target="_blank"
+                                        >
+                                            {{ character.lastSeen }}
+                                        </a>
+                                    </p>
+
+                                    <p class="title">{{ firstSeenIn }}</p>
+                                    <p>
+                                        <a href="{{ character.firstEpisodeUrl }}"
+                                           tabindex="0"
+                                           target="_blank"
+                                        >
+                                            {{ character.firstSeen.firstEpisodeTitle }}
+                                        </a>
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                    {% endfor %}
-                {% endif %}
-            </div>
+                    </div>
+                {% endfor %}
+            {% endif %}
         </div>
-    </article>
+    </div>
+</article>
 
 </body>
 </html>

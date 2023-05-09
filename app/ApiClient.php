@@ -19,8 +19,6 @@ class ApiClient
 
     public function fetchCharacters(): array
     {
-
-
         try {
             $collected = [];
 

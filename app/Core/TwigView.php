@@ -6,6 +6,7 @@ class TwigView
 {
     private string $path;
     private array $data;
+
     public function __construct(string $path, array $data)
     {
         $this->path = $path;

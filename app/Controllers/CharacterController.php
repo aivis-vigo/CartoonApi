@@ -8,6 +8,7 @@ use App\Core\TwigView;
 class CharacterController
 {
     private ApiClient $client;
+
     public function __construct()
     {
         $this->client = new ApiClient();

@@ -10,7 +10,7 @@ class Router
 {
     public static function response(): ?TwigView
     {
-        $dispatcher = simpleDispatcher(function(FastRoute\RouteCollector $router) {
+        $dispatcher = simpleDispatcher(function (FastRoute\RouteCollector $router) {
             $router->addRoute('GET', '/', [CharacterController::class, 'index']);
             $router->addRoute('GET', '/characters', [CharacterController::class, 'index']);
             $router->addRoute('GET', '/search[/{title}]', [CharacterController::class, 'search']);

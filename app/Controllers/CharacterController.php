@@ -19,7 +19,8 @@ class CharacterController
         return new TwigView('view', [
             'characters' => $this->client->fetchCharacters(),
             "lastSeenIn" => "Last known location:",
-            "firstSeenIn" => "First seen in:"
+            "firstSeenIn" => "First seen in:",
+            "pages" => $this->client->fetchCharacters()[0]->pageUrl()
         ]);
     }
 
@@ -30,7 +31,8 @@ class CharacterController
             'query' => $query,
             'characters' => $this->client->searchFor($name),
             "lastSeenIn" => "Last known location:",
-            "firstSeenIn" => "First seen in:"
+            "firstSeenIn" => "First seen in:",
+            "pages" => $this->client->searchFor($name)[0]->pageUrl()
         ]);
     }
 }

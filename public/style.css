@@ -117,3 +117,31 @@ a[tabindex]:focus {
     color: orange;
     outline: none;
 }
+
+footer {
+    display: flex;
+    padding: 20px;
+}
+
+.arrows {
+    border-radius: 10px;
+    margin: 0 auto;
+    padding: 10px;
+    background-color: orange;
+}
+
+.prev, .next {
+    background-color: orange;
+    border-radius: 10px;
+    display: inline;
+    color: black;
+}
+
+footer a:hover {
+    color: black;
+}
+
+footer a {
+    font-size: 20px;
+    margin: 10px;
+}

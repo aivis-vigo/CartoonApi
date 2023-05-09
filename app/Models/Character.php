@@ -13,6 +13,7 @@ class Character
     private string $firstEpisodeUrl;
     private Episode $firstSeen;
     private string $pictureUrl;
+    private Page $pageUrl;
 
     public function __construct(
         int $id,
@@ -23,7 +24,8 @@ class Character
         string $lastSeen,
         string $firsEpisodeUrl,
         Episode $firstSeen,
-        string $pictureUrl
+        string $pictureUrl,
+        Page $pageUrl
     )
     {
         $this->id = $id;
@@ -35,6 +37,7 @@ class Character
         $this->firstEpisodeUrl = $firsEpisodeUrl;
         $this->firstSeen = $firstSeen;
         $this->pictureUrl = $pictureUrl;
+        $this->pageUrl = $pageUrl;
     }
 
     public function id(): int
@@ -93,5 +96,10 @@ class Character
     public function pictureUrl(): string
     {
         return $this->pictureUrl;
+    }
+
+    public function pageUrl(): Page
+    {
+        return $this->pageUrl;
     }
 }

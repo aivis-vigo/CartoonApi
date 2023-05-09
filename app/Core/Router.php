@@ -37,7 +37,6 @@ class Router
                 $handler = $routeInfo[1];
                 $vars = $routeInfo[2];
 
-                //var_dump($vars);
                 [$controllerName, $methodName] = $handler;
 
                 if ($methodName == "search") {

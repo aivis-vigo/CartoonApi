@@ -40,7 +40,9 @@
                                     </p>
 
                                     <div class="emoji">
-                                        <div class="symbol" style="color: {{ character.statusColor }}">
+                                        <div class="symbol"
+                                             style="color: {{ character.statusColor }}"
+                                        >
                                             &bull;
                                         </div>
                                         &nbsp;
@@ -77,6 +79,22 @@
         </div>
     </div>
 </article>
+
+<footer>
+    <div class="arrows">
+        <div class="prev">
+            <a href="{{ pages.previousPage }}">
+                &#11013;
+            </a>
+        </div>
+
+        <div class="next">
+            <a href="{{ pages.nextPage }}">
+                &#10145;
+            </a>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>

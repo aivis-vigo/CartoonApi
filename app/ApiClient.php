@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Episode;
+use App\Models\Page;
 use GuzzleHttp\Client;
 use App\Models\Character;
 use GuzzleHttp\Exception\GuzzleException;
@@ -43,6 +44,8 @@ class ApiClient
                 }
 
                 $episode = json_decode($episodeJson);
+                $pages = $characters->info;
+
                 $collected[] = new Character(
                     $person->id,
                     $person->name,
@@ -52,7 +55,8 @@ class ApiClient
                     $person->location->name,
                     $person->episode[0],
                     new Episode($episode->name),
-                    $person->image
+                    $person->image,
+                    new Page($pages->prev, $pages->next)
                 );
             }
             return $collected;
@@ -68,6 +72,7 @@ class ApiClient
             $collected = [];
             $client = $this->client->get($this->url . "?name=$name");
             $characters = json_decode($client->getBody()->getContents());
+            $pages = $characters->info;
 
             foreach ($characters->results as $person) {
                 $firstEpisodeUrl = $person->episode[0];
@@ -83,7 +88,8 @@ class ApiClient
                     $person->location->name,
                     $person->episode[0],
                     new Episode($episode->name),
-                    $person->image
+                    $person->image,
+                    new Page($pages->next, $pages->prev)
                 );
             }
             return $collected;

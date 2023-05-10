@@ -30,6 +30,7 @@ button {
     background-color: orange;
     border-radius: 0px 10px 10px 0px;
     border: orange;
+    cursor: pointer;
 }
 
 i {
@@ -137,11 +138,12 @@ footer {
     color: black;
 }
 
-footer a:hover {
-    color: black;
+footer input {
+    padding: 5px;
+    background-color: black;
+    cursor: pointer;
 }
 
-footer a {
-    font-size: 20px;
-    margin: 10px;
+footer input:hover {
+    color: orange;
 }

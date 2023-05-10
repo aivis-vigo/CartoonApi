@@ -24,10 +24,12 @@ class ApiClient
             $collected = [];
 
             if (!Cache::has('characters')) {
-                $response = $this->client->get($this->url);
+                var_dump("save");
+                $response = $this->client->get($this->url . "?page=15");
                 $responseJson = $response->getBody()->getContents();
                 Cache::save('characters', $responseJson);
             } else {
+                var_dump("fetch");
                 $responseJson = Cache::get('characters');
             }
 

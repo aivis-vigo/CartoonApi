@@ -13,9 +13,16 @@
 
 <header>
     <form name="form">
-        <input class="bar" type="text" id="search" name="search" value="{{ query }}" placeholder="Character..."
+        <input class="bar"
+               type="text"
+               id="search"
+               name="search"
+               value="{{ query }}"
+               placeholder="Character..."
                required>
-        <button type="submit"><i class="fa fa-search"></i></button>
+        <button type="submit">
+            <i class="fa fa-search"></i>
+        </button>
     </form>
 </header>
 
@@ -41,8 +48,7 @@
 
                                     <div class="emoji">
                                         <div class="symbol"
-                                             style="color: {{ character.statusColor }}"
-                                        >
+                                             style="color: {{ character.statusColor }}">
                                             &bull;
                                         </div>
                                         &nbsp;
@@ -55,8 +61,7 @@
                                     <p>
                                         <a href="{{ character.originUrl }}"
                                            tabindex="0"
-                                           target="_blank"
-                                        >
+                                           target="_blank">
                                             {{ character.lastSeen }}
                                         </a>
                                     </p>
@@ -65,8 +70,7 @@
                                     <p>
                                         <a href="{{ character.firstEpisodeUrl }}"
                                            tabindex="0"
-                                           target="_blank"
-                                        >
+                                           target="_blank">
                                             {{ character.firstSeen.firstEpisodeTitle }}
                                         </a>
                                     </p>
@@ -83,13 +87,13 @@
 <footer>
     <div class="arrows">
         <div class="prev">
-            <a href="{{ pages.previousPage }}">
+            <a href="previous/{{ pages.previousPage }}">
                 <input type="submit" value="Previous">
             </a>
         </div>
 
         <div class="next">
-            <a href="{{ pages.nextPage }}">
+            <a href="next/{{ pages.nextPage }}">
                 <input type="submit" value="Next">
             </a>
         </div>

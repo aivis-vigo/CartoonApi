@@ -24,12 +24,10 @@ class ApiClient
             $collected = [];
 
             if (!Cache::has('characters')) {
-                var_dump("save");
-                $response = $this->client->get($this->url . "?page=15");
+                $response = $this->client->get($this->url);
                 $responseJson = $response->getBody()->getContents();
                 Cache::save('characters', $responseJson);
             } else {
-                var_dump("fetch");
                 $responseJson = Cache::get('characters');
             }
 
@@ -65,14 +63,59 @@ class ApiClient
         } catch (GuzzleException $e) {
             return [];
         }
-
     }
 
     public function searchFor(string $name): array
     {
         try {
             $collected = [];
-            $client = $this->client->get($this->url . "?name=$name");
+            if (!Cache::has($name)) {
+                $response = $this->client->get($this->url . "?name=$name");
+                $responseJson = $response->getBody()->getContents();
+                Cache::save($name, $responseJson);
+            } else {
+                $responseJson = Cache::get($name);
+            }
+
+            $characters = json_decode($responseJson);
+
+            foreach ($characters->results as $person) {
+                $firstEpisodeUrl = $person->episode[0];
+                $episodeCacheKey = md5($firstEpisodeUrl);
+                if (!Cache::has($episodeCacheKey)) {
+                    $episodeJson = $this->client->get($firstEpisodeUrl)->getBody()->getContents();
+                    Cache::save($episodeCacheKey, $episodeJson);
+                } else {
+                    $episodeJson = Cache::get($episodeCacheKey);
+                }
+
+                $episode = json_decode($episodeJson);
+                $pages = $characters->info;
+
+                $collected[] = new Character(
+                    $person->id,
+                    $person->name,
+                    $person->status,
+                    $person->species,
+                    $person->origin->url,
+                    $person->location->name,
+                    $person->episode[0],
+                    new Episode($episode->name),
+                    $person->image,
+                    new Page($pages->next, $pages->prev)
+                );
+            }
+            return $collected;
+        } catch (GuzzleException $exception) {
+            return [];
+        }
+    }
+
+    public function pageChanger(string $change): array
+    {
+        try {
+            $collected = [];
+            $client = $this->client->get($this->url . "?page=$change");
             $characters = json_decode($client->getBody()->getContents());
             $pages = $characters->info;
 
@@ -94,6 +137,7 @@ class ApiClient
                     new Page($pages->next, $pages->prev)
                 );
             }
+            var_dump($collected[0]);
             return $collected;
         } catch (GuzzleException $exception) {
             return [];

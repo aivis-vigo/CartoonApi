@@ -65,12 +65,17 @@ class ApiClient
         }
     }
 
-    public function searchFor(string $name): array
+    public function searchFor(
+        string $name,
+        string $status,
+        string $species
+    ): array
     {
         try {
             $collected = [];
             if (!Cache::has($name)) {
-                $response = $this->client->get($this->url . "?name=$name");
+                $query = "?name=$name&status=$status&species=$species";
+                $response = $this->client->get($this->url . $query);
                 $responseJson = $response->getBody()->getContents();
                 Cache::save($name, $responseJson);
             } else {
@@ -134,10 +139,9 @@ class ApiClient
                     $person->episode[0],
                     new Episode($episode->name),
                     $person->image,
-                    new Page($pages->next, $pages->prev)
+                    new Page($pages->prev, $pages->next)
                 );
             }
-            var_dump($collected[0]);
             return $collected;
         } catch (GuzzleException $exception) {
             return [];

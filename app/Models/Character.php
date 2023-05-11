@@ -16,16 +16,16 @@ class Character
     private Page $pageUrl;
 
     public function __construct(
-        int $id,
-        string $name,
-        string $status,
-        string $species,
-        string $originUrl,
-        string $lastSeen,
-        string $firsEpisodeUrl,
+        int     $id,
+        string  $name,
+        string  $status,
+        string  $species,
+        string  $originUrl,
+        string  $lastSeen,
+        string  $firsEpisodeUrl,
         Episode $firstSeen,
-        string $pictureUrl,
-        Page $pageUrl
+        string  $pictureUrl,
+        Page    $pageUrl
     )
     {
         $this->id = $id;

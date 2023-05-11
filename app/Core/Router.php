@@ -14,8 +14,7 @@ class Router
             $router->addRoute('GET', '/', [CharacterController::class, 'index']);
             $router->addRoute('GET', '/characters', [CharacterController::class, 'index']);
             $router->addRoute('GET', '/search[/{title}]', [CharacterController::class, 'search']);
-            $router->addRoute('GET', '/previous[/{title}]', [CharacterController::class, 'changePage']);
-            $router->addRoute('GET', '/next[/{title}]', [CharacterController::class, 'changePage']);
+            $router->addRoute('GET', '/?page[/{title}]', [CharacterController::class, 'changePage']);
         });
 
         // Fetch method and URI from somewhere

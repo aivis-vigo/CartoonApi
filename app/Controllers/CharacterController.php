@@ -4,6 +4,7 @@ namespace App\Controllers;
 
 use App\ApiClient;
 use App\Core\TwigView;
+use App\Models\Page;
 
 class CharacterController
 {
@@ -24,15 +25,24 @@ class CharacterController
         ]);
     }
 
-    public function search(string $name): TwigView
+    public function search(
+        string $name,
+        string $status,
+        string $species
+    ): TwigView
     {
-        $query = substr($_SERVER["REQUEST_URI"], 8);
-        return new TwigView('view', [
-            'query' => $query,
-            'characters' => $this->client->searchFor($name),
+        return new TwigView('search', [
+            'name' => $name,
+            'status' => $name,
+            'species' => $name,
+            'gender' => $name,
+            'characters' => $this->client->searchFor(
+                $name,
+                $status,
+                $species
+            ),
             "lastSeenIn" => "Last known location:",
             "firstSeenIn" => "First seen in:",
-            "pages" => $this->client->searchFor($name)[0]->pageUrl()
         ]);
     }
 
@@ -42,7 +52,7 @@ class CharacterController
             'characters' => $this->client->pageChanger($page),
             "lastSeenIn" => "Last known location:",
             "firstSeenIn" => "First seen in:",
-            "pages" => $this->client->fetchCharacters()[0]->pageUrl()
+            "pages" => $this->client->pageChanger($page)[0]->pageUrl()
         ]);
     }
 }

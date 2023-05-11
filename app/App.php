@@ -11,13 +11,22 @@ class App
     {
         if (isset($_GET["search"])) {
             $client = new Controllers\CharacterController();
-            $response = $client->search($_GET["search"]);
+            $response = $client->search(
+                $_GET["search"],
+                $_GET["status"],
+                $_GET["species"]
+            );
+            $renderer = new Renderer('../app/Views');
+            echo $renderer->render($response);
+        } elseif (isset($_GET["page"])) {
+            $client = new Controllers\CharacterController();
+            $response = $client->changePage($_GET["page"]);
+            $renderer = new Renderer('../app/Views');
+            echo $renderer->render($response);
+        } else {
+            $response = Router::response();
             $renderer = new Renderer('../app/Views');
             echo $renderer->render($response);
         }
-
-        $response = Router::response();
-        $renderer = new Renderer('../app/Views');
-        echo $renderer->render($response);
     }
 }

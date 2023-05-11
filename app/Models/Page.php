@@ -18,11 +18,14 @@ class Page
 
     public function previousPage(): ?string
     {
-        return $this->previousPage;
+        if (empty($this->previousPage)) {
+            return null;
+        }
+        return substr($this->previousPage, -1);
     }
 
     public function nextPage(): ?string
     {
-        return $this->nextPage;
+        return substr($this->nextPage, -1);
     }
 }

@@ -10,14 +10,32 @@ body {
 header {
     display: flex;
     padding: 20px;
+    background-color: black;
+    border-radius: 20px;
+    border: 2px solid gray;
+}
+
+header select {
+    border-radius: 10px;
 }
 
 form {
     text-align: center;
     display: inline-block;
-    background-color: white;
+    background-color: black;
     border-radius: 10px;
     margin: 0 auto;
+}
+
+select {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    padding: 10px;
+}
+
+option {
+    color: black;
 }
 
 input {
@@ -31,6 +49,10 @@ button {
     border-radius: 0px 10px 10px 0px;
     border: orange;
     cursor: pointer;
+}
+
+button {
+    border-radius: 10px;
 }
 
 i {
@@ -138,12 +160,12 @@ footer {
     color: black;
 }
 
-footer input {
+footer a {
+    font-size: 20px;
     padding: 5px;
-    background-color: black;
     cursor: pointer;
 }
 
-footer input:hover {
-    color: orange;
+footer a:hover {
+    color: black;
 }

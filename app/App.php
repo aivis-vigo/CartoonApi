@@ -9,10 +9,10 @@ class App
 {
     public function run(): void
     {
-        if (isset($_GET["search"])) {
+        if (isset($_GET["name"])) {
             $client = new Controllers\CharacterController();
             $response = $client->search(
-                $_GET["search"],
+                $_GET["name"],
                 $_GET["status"],
                 $_GET["species"]
             );

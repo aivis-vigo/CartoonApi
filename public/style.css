@@ -9,10 +9,7 @@ body {
 
 header {
     display: flex;
-    padding: 20px;
-    background-color: black;
-    border-radius: 20px;
-    border: 2px solid gray;
+    padding: 10px;
 }
 
 header select {
@@ -22,7 +19,6 @@ header select {
 form {
     text-align: center;
     display: inline-block;
-    background-color: black;
     border-radius: 10px;
     margin: 0 auto;
 }

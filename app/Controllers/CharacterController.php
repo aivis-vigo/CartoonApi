@@ -32,10 +32,6 @@ class CharacterController
     ): TwigView
     {
         return new TwigView('search', [
-            'name' => $name,
-            'status' => $name,
-            'species' => $name,
-            'gender' => $name,
             'characters' => $this->client->searchFor(
                 $name,
                 $status,

@@ -4,7 +4,6 @@ namespace App\Controllers;
 
 use App\ApiClient;
 use App\Core\TwigView;
-use App\Models\Page;
 
 class CharacterController
 {
@@ -27,11 +26,12 @@ class CharacterController
 
     public function allCharacters(): TwigView
     {
+        $characters = $this->client->fetchCharacters();
         return new TwigView('characters', [
-            'characters' => $this->client->fetchCharacters(),
+            'characters' => $characters,
             "lastSeenIn" => "Last known location:",
             "firstSeenIn" => "First seen in:",
-            "pages" => $this->client->fetchCharacters()[0]->pageUrl()
+            "pages" => $characters[0]->pageUrl()
         ]);
     }
 
@@ -54,11 +54,12 @@ class CharacterController
 
     public function changePage(string $page): TwigView
     {
+        $characters = $this->client->pageChanger($page);
         return new TwigView('characters', [
-            'characters' => $this->client->pageChanger($page),
+            'characters' => $characters,
             "lastSeenIn" => "Last known location:",
             "firstSeenIn" => "First seen in:",
-            "pages" => $this->client->pageChanger($page)[0]->pageUrl()
+            "pages" => $characters[0]->pageUrl()
         ]);
     }
 }

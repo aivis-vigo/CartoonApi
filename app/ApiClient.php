@@ -131,6 +131,7 @@ class ApiClient
             }
 
             $characters = json_decode($responseJson);
+            $pages = $characters->info;
 
             foreach ($characters->results as $person) {
                 $firstEpisodeUrl = $person->episode[0];

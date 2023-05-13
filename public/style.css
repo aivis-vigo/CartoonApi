@@ -97,7 +97,6 @@ input {
 button {
     padding: 7px;
     background-color: orange;
-    border-radius: 0px 10px 10px 0px;
     border: orange;
     cursor: pointer;
 }

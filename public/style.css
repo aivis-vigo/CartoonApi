@@ -197,11 +197,20 @@ footer {
     padding: 20px;
 }
 
+.center-arrows {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
 .arrows {
     border-radius: 10px;
-    margin: 0 auto;
     padding: 10px;
+    margin: 0 0 20px 0;
     background-color: orange;
+    display: inline-block;
+    justify-content: center;
+    text-align: center;
 }
 
 .prev, .next {

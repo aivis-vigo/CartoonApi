@@ -4,19 +4,31 @@
 }
 
 body {
+    margin: 0;
     background-color: #272524;
 }
 
 .navigation {
     display: flex;
+    background-color: orange;
+    border-bottom: 2px solid black;
 }
 
 nav {
     margin: 0 auto;
+    padding: 10px;
+    display: flex;
+    justify-content: left;
+}
+
+nav img {
+    width: 50px;
+    height: 50px;
 }
 
 li {
     display: inline;
+    font-weight: bold;
 }
 
 ul {
@@ -36,6 +48,7 @@ nav ul li a:hover {
 header {
     display: flex;
     padding: 10px;
+    background-color: #383232;
 }
 
 header select {

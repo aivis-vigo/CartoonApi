@@ -25,7 +25,7 @@ class Character
         string  $firsEpisodeUrl,
         Episode $firstSeen,
         string  $pictureUrl,
-        Page    $pageUrl
+        Page    $pageUrl,
     )
     {
         $this->id = $id;

@@ -21,11 +21,15 @@ class Page
         if (empty($this->previousPage)) {
             return null;
         }
-        return substr($this->previousPage, -1);
+        $url = parse_url($this->previousPage);
+        parse_str($url["query"], $page);
+        return $page["page"];
     }
 
     public function nextPage(): ?string
     {
-        return substr($this->nextPage, -1);
+        $url = parse_url($this->nextPage);
+        parse_str($url["query"], $page);
+        return $page["page"];
     }
 }

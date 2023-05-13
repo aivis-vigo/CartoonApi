@@ -4,7 +4,33 @@
 }
 
 body {
-    background-color: #383232;
+    background-color: #272524;
+}
+
+.navigation {
+    display: flex;
+}
+
+nav {
+    margin: 0 auto;
+}
+
+li {
+    display: inline;
+}
+
+ul {
+    list-style: none;
+}
+
+nav ul li a {
+    background-color: orange;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+nav ul li a:hover {
+    color: black;
 }
 
 header {
@@ -14,6 +40,14 @@ header {
 
 header select {
     border-radius: 10px;
+}
+
+main {
+    background-color: #383232;
+}
+
+article {
+    padding: 20px;
 }
 
 form {
@@ -156,12 +190,27 @@ footer {
     color: black;
 }
 
-footer a {
+.arrows a {
     font-size: 20px;
     padding: 5px;
     cursor: pointer;
 }
 
-footer a:hover {
+.arrows a:hover {
     color: black;
+}
+
+footer .footer-info a {
+    font-size: 17px;
+    color: lightgray;
+}
+
+footer .footer-info a:hover {
+    color: orange;
+}
+
+.footer-info {
+    padding: 20px;
+    display: inline-block;
+    margin: 0 auto;
 }

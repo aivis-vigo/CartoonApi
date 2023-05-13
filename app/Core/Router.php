@@ -12,8 +12,8 @@ class Router
     {
         $dispatcher = simpleDispatcher(function (FastRoute\RouteCollector $router) {
             $router->addRoute('GET', '/', [CharacterController::class, 'index']);
-            $router->addRoute('GET', '/characters', [CharacterController::class, 'index']);
-            $router->addRoute('GET', '/search[/{title}]', [CharacterController::class, 'search']);
+            $router->addRoute('GET', '/characters', [CharacterController::class, 'fetchCharacters']);
+            $router->addRoute('GET', '/allCharacters', [CharacterController::class, 'allCharacters']);
             $router->addRoute('GET', '/?page[/{title}]', [CharacterController::class, 'changePage']);
         });
 
@@ -46,7 +46,7 @@ class Router
                 }
 
                 /** @var TwigView $response */
-                return (new $controllerName)->{$methodName}();
+                return (new $controllerName)->{$methodName}($controllerName);
         }
         return null;
     }

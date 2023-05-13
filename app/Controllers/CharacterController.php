@@ -18,6 +18,16 @@ class CharacterController
     public function index(): TwigView
     {
         return new TwigView('view', [
+            'characters' => $this->client->fetchRandomCharacters(),
+            "lastSeenIn" => "Last known location:",
+            "firstSeenIn" => "First seen in:",
+            //"pages" => $this->client->fetchCharacters()[0]->pageUrl()
+        ]);
+    }
+
+    public function allCharacters(): TwigView
+    {
+        return new TwigView('characters', [
             'characters' => $this->client->fetchCharacters(),
             "lastSeenIn" => "Last known location:",
             "firstSeenIn" => "First seen in:",
@@ -44,7 +54,7 @@ class CharacterController
 
     public function changePage(string $page): TwigView
     {
-        return new TwigView('view', [
+        return new TwigView('characters', [
             'characters' => $this->client->pageChanger($page),
             "lastSeenIn" => "Last known location:",
             "firstSeenIn" => "First seen in:",

@@ -49,63 +49,73 @@
     </form>
 </header>
 
-<article>
-    <div class="allCharacters">
-        <div class="center-characters">
-            {% if characters is defined %}
-                {% for character in characters %}
-                    <div class="columns">
-                        <div class="container">
-                            <div class="pic">
-                                <img src="{{ character.pictureUrl }}">
-                            </div>
-                            <div class="info">
-                                <div class="info-contains">
-                                    <p class="characterName">
-                                        <a href="https://rickandmortyapi.com/api/character/{{ character.id }}"
-                                           tabindex="0"
-                                           target="_blank">
-                                            {{ character.name }}
-                                        </a>
-                                    </p>
+<main>
+    <article>
+        <div class="allCharacters">
+            <div class="center-characters">
+                {% if characters is defined %}
+                    {% for character in characters %}
+                        <div class="columns">
+                            <div class="container">
+                                <div class="pic">
+                                    <img src="{{ character.pictureUrl }}">
+                                </div>
+                                <div class="info">
+                                    <div class="info-contains">
+                                        <p class="characterName">
+                                            <a href="https://rickandmortyapi.com/api/character/{{ character.id }}"
+                                               tabindex="0"
+                                               target="_blank">
+                                                {{ character.name }}
+                                            </a>
+                                        </p>
 
-                                    <div class="emoji">
-                                        <div class="symbol"
-                                             style="color: {{ character.statusColor }}">
-                                            &bull;
+                                        <div class="emoji">
+                                            <div class="symbol"
+                                                 style="color: {{ character.statusColor }}">
+                                                &bull;
+                                            </div>
+                                            &nbsp;
+                                            <div class="text">
+                                                {{ character.status }} - {{ character.species }}
+                                            </div>
                                         </div>
-                                        &nbsp;
-                                        <div class="text">
-                                            {{ character.status }} - {{ character.species }}
-                                        </div>
+
+                                        <p class="title">{{ lastSeenIn }}</p>
+                                        <p>
+                                            <a href="{{ character.originUrl }}"
+                                               tabindex="0"
+                                               target="_blank">
+                                                {{ character.lastSeen }}
+                                            </a>
+                                        </p>
+
+                                        <p class="title">{{ firstSeenIn }}</p>
+                                        <p>
+                                            <a href="{{ character.firstEpisodeUrl }}"
+                                               tabindex="0"
+                                               target="_blank">
+                                                {{ character.firstSeen.firstEpisodeTitle }}
+                                            </a>
+                                        </p>
                                     </div>
-
-                                    <p class="title">{{ lastSeenIn }}</p>
-                                    <p>
-                                        <a href="{{ character.originUrl }}"
-                                           tabindex="0"
-                                           target="_blank">
-                                            {{ character.lastSeen }}
-                                        </a>
-                                    </p>
-
-                                    <p class="title">{{ firstSeenIn }}</p>
-                                    <p>
-                                        <a href="{{ character.firstEpisodeUrl }}"
-                                           tabindex="0"
-                                           target="_blank">
-                                            {{ character.firstSeen.firstEpisodeTitle }}
-                                        </a>
-                                    </p>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
+    </article>
+</main>
+
+<footer>
+    <div class="footer-info">
+        <a href="https://rickandmortyapi.com/api/character">Characters: 826</a>
+        <a href="https://rickandmortyapi.com/api/location">Locations: 126</a>
+        <a href="https://rickandmortyapi.com/api/episode">Episodes: 51</a>
     </div>
-</article>
+</footer>
 
 </body>
 </html>

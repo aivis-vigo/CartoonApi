@@ -13,7 +13,10 @@
 
 <div class="navigation">
     <nav>
-        <img src="pngwing.com.png" alt="logo">
+        <div class="image">
+            <img src="pngwing.com.png" alt="logo">
+        </div>
+
         <ul>
             <li>
                 <a href="/">Home</a>
@@ -33,44 +36,6 @@
         </ul>
     </nav>
 </div>
-
-<header>
-    <form>
-        <input class="bar"
-               type="text"
-               id="name"
-               name="name"
-               value="{{ name }}"
-               placeholder="Character..."
-               required>
-
-        <select id="status"
-                name="status"
-                value={{ status }}
-                required>
-            <option value="">- Status -</option>
-            <option value="alive">Alive</option>
-            <option value="dead">Dead</option>
-            <option value="unknown">Unknown</option>
-        </select>
-
-        <select id="species"
-                name="species"
-                required>
-            <option value="">- Species -</option>
-            <option value="human">Human</option>
-            <option value="humanoid">Humanoid</option>
-            <option value="alien">Alien</option>
-            <option value="robot">Robot</option>
-            <option value="poopybutthole">Poopybutthole</option>
-            <option value="mythological_creature">Mythological Creature</option>
-        </select>
-
-        <button class="search-button" type="submit">
-            <i class="fa fa-search"></i>
-        </button>
-    </form>
-</header>
 
 <main>
     <article>

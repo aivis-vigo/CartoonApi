@@ -12,6 +12,13 @@ body {
     display: flex;
     background-color: orange;
     border-bottom: 2px solid black;
+    line-height: 18px;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 nav {
@@ -19,6 +26,7 @@ nav {
     padding: 10px;
     display: flex;
     justify-content: left;
+    font-size: 18px;
 }
 
 nav img {

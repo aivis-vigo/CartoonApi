@@ -6,5 +6,5 @@ $client = new App\App();
 $client->run();
 
 $test = new App\ApiClient();
-$response = $test->fetchLocations();
+$response = $test->fetchEpisodes();
 var_dump($response[0]);

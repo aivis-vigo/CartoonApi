@@ -135,6 +135,10 @@ form input {
     text-align: center;
 }
 
+.episodes a:hover {
+    color: orange;
+}
+
 .episode-column {
     display: flex;
     flex-direction: column;
@@ -145,6 +149,7 @@ form input {
     flex-direction: column;
     margin: 0 auto;
     font-weight: bold;
+    padding: 20px;
 }
 
 .container .pic {

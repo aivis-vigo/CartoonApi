@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Models\Episode;
+use App\Models\FirstEpisode;
 use App\Models\Page;
 use GuzzleHttp\Client;
 use App\Models\Character;
@@ -55,7 +56,7 @@ class ApiClient
                     $person->origin->url,
                     $person->location->name,
                     $person->episode[0],
-                    new Episode($episode->name),
+                    new FirstEpisode($episode->name),
                     $person->image,
                     new Page($pages->prev, $pages->next)
                 );
@@ -102,7 +103,7 @@ class ApiClient
                     $person->origin->url,
                     $person->location->name,
                     $person->episode[0],
-                    new Episode($episode->name),
+                    new FirstEpisode($episode->name),
                     $person->image,
                     new Page($pages->prev, $pages->next)
                 );
@@ -153,7 +154,7 @@ class ApiClient
                     $person->origin->url,
                     $person->location->name,
                     $person->episode[0],
-                    new Episode($episode->name),
+                    new FirstEpisode($episode->name),
                     $person->image,
                     new Page($pages->next, $pages->prev)
                 );
@@ -185,7 +186,7 @@ class ApiClient
                     $person->origin->url,
                     $person->location->name,
                     $person->episode[0],
-                    new Episode($episode->name),
+                    new FirstEpisode($episode->name),
                     $person->image,
                     new Page($pages->prev, $pages->next)
                 );
@@ -194,6 +195,29 @@ class ApiClient
         } catch (GuzzleException $exception) {
             return [];
         }
+    }
+
+    public function fetchEpisodes(): array
+    {
+        $collected = [];
+
+        $client = $this->client->get($this->url . "episode");
+        $episodesJson = $client->getBody()->getContents();
+        $episodes = json_decode($episodesJson);
+        $pages = $episodes->info;
+        //var_dump($pages);
+        //var_dump($episodes->results[0]);
+
+        foreach ($episodes->results as $episode) {
+            $collected[] = new Episode(
+                $episode->name,
+                $episode->air_date,
+                $episode->episode,
+                $episode->characters,
+                new Page($pages->prev, $pages->next)
+            );
+        }
+        return $collected;
     }
 
     private function randomlySelected(): string

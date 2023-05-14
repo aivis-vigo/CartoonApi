@@ -3,6 +3,7 @@
 namespace App\Core;
 
 use App\Controllers\CharacterController;
+use App\Controllers\EpisodeController;
 use FastRoute;
 use function FastRoute\simpleDispatcher;
 
@@ -15,6 +16,7 @@ class Router
             $router->addRoute('GET', '/characters', [CharacterController::class, 'allCharacters']);
             $router->addRoute('GET', '/allCharacters', [CharacterController::class, 'allCharacters']);
             $router->addRoute('GET', '/?page[/{title}]', [CharacterController::class, 'changePage']);
+            $router->addRoute('GET', '/episodes', [EpisodeController::class, 'allEpisodes']);
         });
 
         // Fetch method and URI from somewhere

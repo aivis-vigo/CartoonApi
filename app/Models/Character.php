@@ -11,21 +11,21 @@ class Character
     private string $originUrl;
     private string $lastSeen;
     private string $firstEpisodeUrl;
-    private Episode $firstSeen;
+    private FirstEpisode $firstSeen;
     private string $pictureUrl;
     private Page $pageUrl;
 
     public function __construct(
-        int     $id,
-        string  $name,
-        string  $status,
-        string  $species,
-        string  $originUrl,
-        string  $lastSeen,
-        string  $firsEpisodeUrl,
-        Episode $firstSeen,
-        string  $pictureUrl,
-        Page    $pageUrl
+        int          $id,
+        string       $name,
+        string       $status,
+        string       $species,
+        string       $originUrl,
+        string       $lastSeen,
+        string       $firsEpisodeUrl,
+        FirstEpisode $firstSeen,
+        string       $pictureUrl,
+        Page         $pageUrl
     )
     {
         $this->id = $id;
@@ -88,7 +88,7 @@ class Character
         return $this->firstEpisodeUrl;
     }
 
-    public function firstSeen(): Episode
+    public function firstSeen(): FirstEpisode
     {
         return $this->firstSeen;
     }

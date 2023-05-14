@@ -18,9 +18,11 @@ class Page
 
     public function previousPage(): ?string
     {
+        /**
         if (empty($this->previousPage)) {
             return null;
         }
+         * */
         $url = parse_url($this->previousPage);
         parse_str($url["query"], $page);
         return $page["page"];

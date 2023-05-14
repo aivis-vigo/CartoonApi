@@ -129,6 +129,12 @@ form input {
     box-shadow: 0 0 10px #000000;
 }
 
+.center-episode {
+    display: flex;
+    margin: 0 auto;
+    font-weight: bold;
+}
+
 .container .pic {
     display: block;
 }

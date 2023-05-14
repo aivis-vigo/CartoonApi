@@ -13,4 +13,12 @@ class EpisodeController
     {
         $this->client = new ApiClient();
     }
+
+    public function allEpisodes(): TwigView
+    {
+        return new TwigView('episodes', [
+            'episodes' => $this->client->fetchEpisodes(),
+            //'pages' =>$this->client->fetchEpisodes()[0]->page
+        ]);
+    }
 }

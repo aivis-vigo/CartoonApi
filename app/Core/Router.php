@@ -12,7 +12,7 @@ class Router
     {
         $dispatcher = simpleDispatcher(function (FastRoute\RouteCollector $router) {
             $router->addRoute('GET', '/', [CharacterController::class, 'index']);
-            $router->addRoute('GET', '/characters', [CharacterController::class, 'fetchCharacters']);
+            $router->addRoute('GET', '/characters', [CharacterController::class, 'allCharacters']);
             $router->addRoute('GET', '/allCharacters', [CharacterController::class, 'allCharacters']);
             $router->addRoute('GET', '/?page[/{title}]', [CharacterController::class, 'changePage']);
         });

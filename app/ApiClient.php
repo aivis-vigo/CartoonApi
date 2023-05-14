@@ -200,7 +200,6 @@ class ApiClient
     public function fetchEpisodes(): array
     {
         $collected = [];
-
         $client = $this->client->get($this->url . "episode");
         $episodesJson = $client->getBody()->getContents();
         $episodes = json_decode($episodesJson);
@@ -239,6 +238,10 @@ class ApiClient
         $pages = $characters->info;
 
         foreach ($characters as $person) {
+            $firstEpisode = $this->client->get($person->episode[0]);
+            $firstEpisodeJson = $firstEpisode->getBody()->getContents();
+            $episodeTitle = json_decode($firstEpisodeJson);
+
             $collected[] = new Character(
                 $person->id,
                 $person->name,
@@ -247,12 +250,30 @@ class ApiClient
                 $person->origin->url,
                 $person->location->name,
                 $person->episode[0],
-                new FirstEpisode($episodes->name),
+                new FirstEpisode($episodeTitle->name),
                 $person->image,
                 new Page($pages->prev, $pages->next)
             );
         }
         return $collected;
+    }
+
+    public function selectedEpisode(string $number): Episode
+    {
+        $collected = [];
+        $client = $this->client->get($this->url . "episode/$number");
+        $episodesJson = $client->getBody()->getContents();
+        $episodes = json_decode($episodesJson);
+
+        return new Episode(
+            $episodes->id,
+            $episodes->name,
+            $episodes->air_date,
+            $episodes->episode,
+            $episodes->characters,
+            new Page("-", "-")
+        );
+
     }
 
     public function fetchLocations(): array

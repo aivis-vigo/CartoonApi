@@ -39,6 +39,10 @@
 
 <main>
     <article>
+        <div class="episode-title">
+            <h2>{{ episode.seasonEpisodeId }} - {{ episode.title }} - {{ episode.released }}</h2>
+        </div>
+
         <div class="allCharacters">
             <div class="center-characters">
                 {% if characters is defined %}

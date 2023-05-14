@@ -26,9 +26,10 @@ class EpisodeController
     public function selectEpisode(string $number): TwigView
     {
         return new TwigView('selectedEpisode', [
+            'episode' => $this->client->selectedEpisode($number),
             'characters' => $this->client->fetchEpisode($number),
-            "lastSeenIn" => "Last known location:",
-            "firstSeenIn" => "First seen in:"
+            'lastSeenIn' => 'Last known location:',
+            'firstSeenIn' => 'First seen in:'
         ]);
     }
 }

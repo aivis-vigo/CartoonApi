@@ -39,18 +39,15 @@ li {
     font-weight: bold;
 }
 
-ul {
-    list-style: none;
-}
-
 nav ul li a {
     background-color: orange;
     padding: 10px;
     border-radius: 10px;
+    color: black;
 }
 
 nav ul li a:hover {
-    color: black;
+    color: white;
 }
 
 header {

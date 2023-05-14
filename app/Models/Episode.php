@@ -4,6 +4,7 @@ namespace App\Models;
 
 class Episode
 {
+    private int $id;
     private string $title;
     private string $released;
     private string $seasonEpisodeId;
@@ -11,6 +12,7 @@ class Episode
     private Page $page;
 
     public function __construct(
+        int $id,
         string $title,
         string $released,
         string $seasonEpisodeId,
@@ -18,11 +20,17 @@ class Episode
         Page $page
     )
     {
+        $this->id = $id;
         $this->title = $title;
         $this->released = $released;
         $this->seasonEpisodeId = $seasonEpisodeId;
         $this->characters = $characters;
         $this->page = $page;
+    }
+
+    public function id(): int
+    {
+        return $this->id;
     }
 
     public function title(): string

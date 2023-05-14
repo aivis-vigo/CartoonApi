@@ -16,9 +16,19 @@ class EpisodeController
 
     public function allEpisodes(): TwigView
     {
+        $episodes = $this->client->fetchEpisodes();
         return new TwigView('episodes', [
-            'episodes' => $this->client->fetchEpisodes(),
-            'pages' =>$this->client->fetchEpisodes()[0]->page()
+            'episodes' => $episodes,
+            'pages' =>$episodes[0]->page()
+        ]);
+    }
+
+    public function selectEpisode(string $number): TwigView
+    {
+        return new TwigView('selectedEpisode', [
+            'characters' => $this->client->fetchEpisode($number),
+            "lastSeenIn" => "Last known location:",
+            "firstSeenIn" => "First seen in:"
         ]);
     }
 }

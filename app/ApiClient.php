@@ -47,7 +47,6 @@ class ApiClient
 
                 $episode = json_decode($episodeJson);
                 $pages = $characters->info;
-                $count = $characters->info->count;
 
                 $collected[] = new Character(
                     $person->id,
@@ -206,15 +205,50 @@ class ApiClient
         $episodesJson = $client->getBody()->getContents();
         $episodes = json_decode($episodesJson);
         $pages = $episodes->info;
-        //var_dump($pages);
-        //var_dump($episodes->results[0]);
 
         foreach ($episodes->results as $episode) {
             $collected[] = new Episode(
+                $episode->id,
                 $episode->name,
                 $episode->air_date,
                 $episode->episode,
                 $episode->characters,
+                new Page($pages->prev, $pages->next)
+            );
+        }
+        return $collected;
+    }
+
+    public function fetchEpisode(string $number): array
+    {
+        $collected = [];
+
+        $client = $this->client->get($this->url . "episode/$number");
+        $episodesJson = $client->getBody()->getContents();
+        $episodes = json_decode($episodesJson);
+
+        $id = [];
+        foreach ($episodes->characters as $character) {
+            $id[] = basename($character);
+        }
+        $characterIds = implode(",", $id);
+
+        $getCharacters = $this->client->get($this->url . "character/$characterIds");
+        $charactersJson = $getCharacters->getBody()->getContents();
+        $characters = json_decode($charactersJson);
+        $pages = $characters->info;
+
+        foreach ($characters as $person) {
+            $collected[] = new Character(
+                $person->id,
+                $person->name,
+                $person->status,
+                $person->species,
+                $person->origin->url,
+                $person->location->name,
+                $person->episode[0],
+                new FirstEpisode($episodes->name),
+                $person->image,
                 new Page($pages->prev, $pages->next)
             );
         }

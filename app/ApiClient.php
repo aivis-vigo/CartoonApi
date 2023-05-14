@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Models\Location;
 use App\Models\Episode;
 use App\Models\FirstEpisode;
 use App\Models\Page;
@@ -215,6 +216,27 @@ class ApiClient
                 $episode->episode,
                 $episode->characters,
                 new Page($pages->prev, $pages->next)
+            );
+        }
+        return $collected;
+    }
+
+    public function fetchLocations(): array
+    {
+        $collected = [];
+
+        $client = $this->client->get($this->url . "location");
+        $locationsJson = $client->getBody()->getContents();
+        $locations = json_decode($locationsJson);
+        $pages = $locations->info;
+
+        foreach ($locations->results as $location) {
+            $collected[] = new Location(
+                $location->name,
+                $location->type,
+                $location->dimension,
+                new Page($pages->prev, $pages->next),
+                $location->residents
             );
         }
         return $collected;

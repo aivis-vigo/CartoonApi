@@ -4,6 +4,7 @@ namespace App\Core;
 
 use App\Controllers\CharacterController;
 use App\Controllers\EpisodeController;
+use App\Controllers\LocationController;
 use FastRoute;
 use function FastRoute\simpleDispatcher;
 
@@ -13,10 +14,11 @@ class Router
     {
         $dispatcher = simpleDispatcher(function (FastRoute\RouteCollector $router) {
             $router->addRoute('GET', '/', [CharacterController::class, 'index']);
+            $router->addRoute('GET', '/episodes', [EpisodeController::class, 'allEpisodes']);
+            $router->addRoute('GET', '/locations', [LocationController::class, 'allLocations']);
             $router->addRoute('GET', '/characters', [CharacterController::class, 'allCharacters']);
             $router->addRoute('GET', '/allCharacters', [CharacterController::class, 'allCharacters']);
             $router->addRoute('GET', '/?page[/{title}]', [CharacterController::class, 'changePage']);
-            $router->addRoute('GET', '/episodes', [EpisodeController::class, 'allEpisodes']);
         });
 
         // Fetch method and URI from somewhere

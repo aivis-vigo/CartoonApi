@@ -18,7 +18,7 @@ class EpisodeController
     {
         return new TwigView('episodes', [
             'episodes' => $this->client->fetchEpisodes(),
-            //'pages' =>$this->client->fetchEpisodes()[0]->page
+            'pages' =>$this->client->fetchEpisodes()[0]->page()
         ]);
     }
 }

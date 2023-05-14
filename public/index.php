@@ -7,5 +7,4 @@ $client->run();
 
 $test = new App\ApiClient();
 $response = $test->fetchEpisodes();
-//var_dump($response[0]);
-var_dump($response);
+//var_dump($response[0]->page());

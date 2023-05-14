@@ -129,8 +129,20 @@ form input {
     box-shadow: 0 0 10px #000000;
 }
 
-.center-episode {
+.episodes {
     display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+.episode-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.center-episode {
+    flex-direction: column;
     margin: 0 auto;
     font-weight: bold;
 }

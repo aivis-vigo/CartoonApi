@@ -38,17 +38,21 @@
 </div>
 
 <main>
-    {% if episodes is defined %}
-        {% for episode in episodes %}
-            <div class="columns">
-                <div class="container">
-                    <div class="center-episode">
-                        <p>{{ episode.seasonEpisodeId }} - {{ episode.title }}</p>
+    <div class="episodes">
+        <div class="episode-column">
+            {% if episodes is defined %}
+                {% for episode in episodes %}
+                    <div class="columns">
+                        <div class="container">
+                            <div class="center-episode">
+                                <p>{{ episode.seasonEpisodeId }} - {{ episode.title }}</p>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        {% endfor %}
-    {% endif %}
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>
 
     <div class="center-arrows">
         <div class="arrows">

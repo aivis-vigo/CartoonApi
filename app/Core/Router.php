@@ -17,6 +17,7 @@ class Router
             $router->addRoute('GET', '/episodes', [EpisodeController::class, 'allEpisodes']);
             $router->addRoute('GET', '/episode[/{title}]', [EpisodeController::class, 'selectEpisode']);
             $router->addRoute('GET', '/locations', [LocationController::class, 'allLocations']);
+            $router->addRoute('GET', '/location[/{title}]', [LocationController::class, 'selectLocation']);
             $router->addRoute('GET', '/characters', [CharacterController::class, 'allCharacters']);
             $router->addRoute('GET', '/allCharacters', [CharacterController::class, 'allCharacters']);
             $router->addRoute('GET', '/?page[/{title}]', [CharacterController::class, 'changePage']);

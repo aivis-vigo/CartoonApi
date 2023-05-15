@@ -4,25 +4,30 @@ namespace App\Models;
 
 class Location
 {
+    private int $id;
     private string $name;
     private string $type;
     private string $dimension;
     private Page $page;
-    private array $residents;
 
     public function __construct(
+        int $id,
         string $name,
         string $type,
         string $dimension,
-        Page $page,
-        array $residents
+        Page $page
     )
     {
+        $this->id = $id;
         $this->name = $name;
         $this->type = $type;
         $this->dimension = $dimension;
         $this->page = $page;
-        $this->residents = $residents;
+    }
+
+    public function id(): int
+    {
+        return $this->id;
     }
 
     public function name(): string
@@ -37,16 +42,11 @@ class Location
 
     public function dimension(): string
     {
-        return $this->dimension;
+        return ucfirst($this->dimension);
     }
 
     public function page(): Page
     {
         return $this->page;
-    }
-
-    public function residents(): array
-    {
-        return $this->residents;
     }
 }

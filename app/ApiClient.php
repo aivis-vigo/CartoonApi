@@ -218,6 +218,27 @@ class ApiClient
         return $collected;
     }
 
+    public function fetchLocations(): array
+    {
+        $collected = [];
+
+        $client = $this->client->get($this->url . "location");
+        $locationsJson = $client->getBody()->getContents();
+        $locations = json_decode($locationsJson);
+        $pages = $locations->info;
+
+        foreach ($locations->results as $location) {
+            $collected[] = new Location(
+                $location->id,
+                $location->name,
+                $location->type,
+                $location->dimension,
+                new Page($pages->prev, $pages->next)
+            );
+        }
+        return $collected;
+    }
+
     public function fetchEpisode(string $number): array
     {
         $collected = [];
@@ -258,9 +279,48 @@ class ApiClient
         return $collected;
     }
 
-    public function selectedEpisode(string $number): Episode
+    public function locationResidents(string $number): array
     {
         $collected = [];
+
+        $client = $this->client->get($this->url . "location/$number");
+        $locationJson = $client->getBody()->getContents();
+        $location = json_decode($locationJson);
+
+        $id = [];
+        foreach ($location->residents as $character) {
+            $id[] = basename($character);
+        }
+        $characterIds = implode(",", $id);
+
+        $getCharacters = $this->client->get($this->url . "character/$characterIds");
+        $charactersJson = $getCharacters->getBody()->getContents();
+        $characters = json_decode($charactersJson);
+        $pages = $characters->info;
+
+        foreach ($characters as $person) {
+            $firstEpisode = $this->client->get($person->episode[0]);
+            $firstEpisodeJson = $firstEpisode->getBody()->getContents();
+            $episodeTitle = json_decode($firstEpisodeJson);
+
+            $collected[] = new Character(
+                $person->id,
+                $person->name,
+                $person->status,
+                $person->species,
+                $person->origin->url,
+                $person->location->name,
+                $person->episode[0],
+                new FirstEpisode($episodeTitle->name),
+                $person->image,
+                new Page($pages->prev, $pages->next)
+            );
+        }
+        return $collected;
+    }
+
+    public function selectedEpisode(string $number): Episode
+    {
         $client = $this->client->get($this->url . "episode/$number");
         $episodesJson = $client->getBody()->getContents();
         $episodes = json_decode($episodesJson);
@@ -273,28 +333,21 @@ class ApiClient
             $episodes->characters,
             new Page("-", "-")
         );
-
     }
 
-    public function fetchLocations(): array
+    public function selectedLocation(string $number): Location
     {
-        $collected = [];
+        $client = $this->client->get($this->url . "location/$number");
+        $locationJson = $client->getBody()->getContents();
+        $location = json_decode($locationJson);
 
-        $client = $this->client->get($this->url . "location");
-        $locationsJson = $client->getBody()->getContents();
-        $locations = json_decode($locationsJson);
-        $pages = $locations->info;
-
-        foreach ($locations->results as $location) {
-            $collected[] = new Location(
-                $location->name,
-                $location->type,
-                $location->dimension,
-                new Page($pages->prev, $pages->next),
-                $location->residents
-            );
-        }
-        return $collected;
+        return new Location(
+            $location->id,
+            $location->name,
+            $location->type,
+            $location->dimension,
+            new Page("-", "-")
+        );
     }
 
     private function randomlySelected(): string

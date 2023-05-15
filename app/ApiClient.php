@@ -355,7 +355,7 @@ class ApiClient
         try {
             $characters = [];
             $start = 0;
-            $end= 6;
+            $end = 6;
 
             $data = $this->client->get($this->url . "character/");
             $allCharacters = json_decode($data->getBody()->getContents());

@@ -11,11 +11,11 @@ class Location
     private Page $page;
 
     public function __construct(
-        int $id,
+        int    $id,
         string $name,
         string $type,
         string $dimension,
-        Page $page
+        Page   $page
     )
     {
         $this->id = $id;

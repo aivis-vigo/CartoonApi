@@ -12,12 +12,12 @@ class Episode
     private Page $page;
 
     public function __construct(
-        int $id,
+        int    $id,
         string $title,
         string $released,
         string $seasonEpisodeId,
-        array $characters,
-        Page $page
+        array  $characters,
+        Page   $page
     )
     {
         $this->id = $id;

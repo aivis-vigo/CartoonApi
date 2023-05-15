@@ -197,6 +197,38 @@ class ApiClient
         }
     }
 
+    public function locationsPageChanger(string $number): array
+    {
+        try {
+            $collected = [];
+            $client = $this->client->get($this->url . "location/$number");
+            $characters = json_decode($client->getBody()->getContents());
+            $pages = $characters->info;
+
+            foreach ($characters->results as $person) {
+                $firstEpisodeUrl = $person->episode[0];
+                $episodeJson = $this->client->get($firstEpisodeUrl)->getBody()->getContents();
+                $episode = json_decode($episodeJson);
+
+                $collected[] = new Character(
+                    $person->id,
+                    $person->name,
+                    $person->status,
+                    $person->species,
+                    $person->origin->url,
+                    $person->location->name,
+                    $person->episode[0],
+                    new FirstEpisode($episode->name),
+                    $person->image,
+                    new Page($pages->prev, $pages->next)
+                );
+            }
+            return $collected;
+        } catch (GuzzleException $exception) {
+            return [];
+        }
+    }
+
     public function fetchEpisodes(): array
     {
         $collected = [];

@@ -23,6 +23,15 @@ class LocationController
         ]);
     }
 
+    public function locationsPage(string $number): TwigView
+    {
+        $locations = $this->client->locationsPageChanger($number);
+        return new TwigView('locations', [
+            'locations' => $locations,
+            'pages' => $locations[0]->page()
+        ]);
+    }
+
     public function selectLocation(string $number): TwigView
     {
         return new TwigView('selectedLocation', [

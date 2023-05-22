@@ -10,17 +10,13 @@ use function FastRoute\simpleDispatcher;
 
 class Router
 {
-    public static function response(): ?TwigView
+    public static function response(array $routes)
     {
-        $dispatcher = simpleDispatcher(function (FastRoute\RouteCollector $router) {
-            $router->addRoute('GET', '/', [CharacterController::class, 'index']);
-            $router->addRoute('GET', '/episodes', [EpisodeController::class, 'index']);
-            $router->addRoute('GET', '/episodes/{id:\d+}', [EpisodeController::class, 'show']);
-            $router->addRoute('GET', '/locations', [LocationController::class, 'index']);
-            $router->addRoute('GET', '/locations/{id:\d+}', [LocationController::class, 'show']);
-            $router->addRoute('GET', '/characters', [CharacterController::class, 'index']);
-            $router->addRoute('GET', '/allCharacters', [CharacterController::class, 'showAll']);
-            $router->addRoute('GET', '/?page/{id:\d+}', [CharacterController::class, 'changePage']);
+        $dispatcher = simpleDispatcher(function (FastRoute\RouteCollector $router) use ($routes) {
+            foreach ($routes as $route) {
+                [$method, $path, $handler] = $route;
+                $router->addRoute($method, $path, $handler);
+            }
         });
 
         // Fetch method and URI from somewhere

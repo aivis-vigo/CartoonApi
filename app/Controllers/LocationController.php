@@ -14,7 +14,7 @@ class LocationController
         $this->client = new ApiClient();
     }
 
-    public function allLocations(): TwigView
+    public function index(): TwigView
     {
         $locations = $this->client->fetchLocations();
         return new TwigView('locations', [
@@ -32,7 +32,7 @@ class LocationController
         ]);
     }
 
-    public function selectLocation(string $number): TwigView
+    public function show(string $number): TwigView
     {
         return new TwigView('selectedLocation', [
             'location' => $this->client->selectedLocation($number),

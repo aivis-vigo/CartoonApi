@@ -24,7 +24,7 @@ class CharacterController
         ]);
     }
 
-    public function allCharacters(): TwigView
+    public function showAll(): TwigView
     {
         $characters = $this->client->fetchCharacters();
         return new TwigView('characters', [

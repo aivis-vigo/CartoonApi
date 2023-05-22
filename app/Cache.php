@@ -8,7 +8,7 @@ class Cache
 {
     public static function save(string $key, string $data, int $ttl = 120): void
     {
-        $cacheFile = '../Cache/' . $key; // ../Cache/Character - example
+        $cacheFile = '../cache/' . $key; // ../Cache/Character - example
 
         file_put_contents($cacheFile, json_encode([
             'expires_at' => Carbon::now()->addSeconds($ttl)->toTimeString(),
@@ -18,7 +18,7 @@ class Cache
 
     public static function delete(string $key): void
     {
-        unlink('../Cache/' . $key);
+        unlink('../cache/' . $key);
     }
 
     public static function get(string $key): ?string
@@ -27,18 +27,18 @@ class Cache
             return null;
         }
 
-        $content = json_decode(file_get_contents('../Cache/' . $key));
+        $content = json_decode(file_get_contents('../cache/' . $key));
 
         return $content->content;
     }
 
     public static function has(string $key): bool
     {
-        if (!file_exists('../Cache/' . $key)) {
+        if (!file_exists('../cache/' . $key)) {
             return false;
         }
 
-        $content = json_decode(file_get_contents('../Cache/' . $key));
+        $content = json_decode(file_get_contents('../cache/' . $key));
 
         return Carbon::parse()->gt($content->expires_at);
     }

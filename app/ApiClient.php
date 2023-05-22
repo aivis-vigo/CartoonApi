@@ -169,8 +169,16 @@ class ApiClient
     {
         try {
             $collected = [];
-            $client = $this->client->get($this->url . "/character/?page=$change");
-            $characters = json_decode($client->getBody()->getContents());
+
+            if (!Cache::has('page_' . $change)) {
+                $client = $this->client->get($this->url . "/character/?page=$change");
+                $responseJson = $client->getBody()->getContents();
+                Cache::save('page_' . $change, $responseJson);
+            } else {
+                $responseJson = Cache::get('page_' . $change);
+            }
+
+            $characters = json_decode($responseJson);
             $pages = $characters->info;
 
             foreach ($characters->results as $person) {

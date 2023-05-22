@@ -14,12 +14,12 @@ class Router
     {
         $dispatcher = simpleDispatcher(function (FastRoute\RouteCollector $router) {
             $router->addRoute('GET', '/', [CharacterController::class, 'index']);
-            $router->addRoute('GET', '/episodes', [EpisodeController::class, 'allEpisodes']);
-            $router->addRoute('GET', '/episodes/{id:\d+}', [EpisodeController::class, 'selectEpisode']);
-            $router->addRoute('GET', '/locations', [LocationController::class, 'allLocations']);
-            $router->addRoute('GET', '/locations/{id:\d+}', [LocationController::class, 'selectLocation']);
-            $router->addRoute('GET', '/characters', [CharacterController::class, 'allCharacters']);
-            $router->addRoute('GET', '/allCharacters', [CharacterController::class, 'allCharacters']);
+            $router->addRoute('GET', '/episodes', [EpisodeController::class, 'index']);
+            $router->addRoute('GET', '/episodes/{id:\d+}', [EpisodeController::class, 'show']);
+            $router->addRoute('GET', '/locations', [LocationController::class, 'index']);
+            $router->addRoute('GET', '/locations/{id:\d+}', [LocationController::class, 'show']);
+            $router->addRoute('GET', '/characters', [CharacterController::class, 'index']);
+            $router->addRoute('GET', '/allCharacters', [CharacterController::class, 'showAll']);
             $router->addRoute('GET', '/?page/{id:\d+}', [CharacterController::class, 'changePage']);
         });
 

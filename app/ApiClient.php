@@ -380,6 +380,10 @@ class ApiClient
         $characters = json_decode($charactersJson);
         $pages = $characters->info;
 
+        if (!is_array($characters)) {
+            $characters = [$characters];
+        }
+
         foreach ($characters as $person) {
             if (!Cache::has('first_character_episode')) {
                 $firstEpisode = $this->client->get($person->episode[0]);

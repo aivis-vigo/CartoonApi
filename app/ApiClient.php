@@ -209,8 +209,15 @@ class ApiClient
     {
         try {
             $collected = [];
-            $client = $this->client->get($this->url . "/location/$number");
-            $characters = json_decode($client->getBody()->getContents());
+            if (!Cache::has('page_' . $number)) {
+                $client = $this->client->get($this->url . "/location/$number");
+                $responseJson = $client->getBody()->getContents();
+                Cache::save('location_page_' . $number, $responseJson);
+            } else {
+                $responseJson = Cache::get('location_page_' . $number);
+            }
+
+            $characters = json_decode($responseJson);
             $pages = $characters->info;
 
             foreach ($characters->results as $person) {
@@ -240,9 +247,14 @@ class ApiClient
     public function fetchEpisodes(): array
     {
         $collected = [];
-        $client = $this->client->get($this->url . "/episode");
-        $episodesJson = $client->getBody()->getContents();
-        $episodes = json_decode($episodesJson);
+        if (!Cache::has('episodes')) {
+            $client = $this->client->get($this->url . "/episode");
+            $responseJson = $client->getBody()->getContents();
+        } else {
+            $responseJson = Cache::get('episodes');
+        }
+
+        $episodes = json_decode($responseJson);
         $pages = $episodes->info;
 
         foreach ($episodes->results as $episode) {
@@ -261,10 +273,15 @@ class ApiClient
     public function fetchLocations(): array
     {
         $collected = [];
+        if (!Cache::has('locations')) {
+            $client = $this->client->get($this->url . "/location");
+            $responseJson = $client->getBody()->getContents();
+            Cache::save('locations', $responseJson);
+        } else {
+            $responseJson = Cache::get('locations');
+        }
 
-        $client = $this->client->get($this->url . "/location");
-        $locationsJson = $client->getBody()->getContents();
-        $locations = json_decode($locationsJson);
+        $locations = json_decode($responseJson);
         $pages = $locations->info;
 
         foreach ($locations->results as $location) {
@@ -282,10 +299,15 @@ class ApiClient
     public function fetchEpisode(string $number): array
     {
         $collected = [];
+        if (!Cache::has('episode_' . $number)) {
+            $client = $this->client->get($this->url . "/episode/$number");
+            $responseJson = $client->getBody()->getContents();
+            Cache::save('episode_' . $number, $responseJson);
+        } else {
+            $responseJson = Cache::get('episode_' . $number);
+        }
 
-        $client = $this->client->get($this->url . "/episode/$number");
-        $episodesJson = $client->getBody()->getContents();
-        $episodes = json_decode($episodesJson);
+        $episodes = json_decode($responseJson);
 
         $id = [];
         foreach ($episodes->characters as $character) {
@@ -293,14 +315,24 @@ class ApiClient
         }
         $characterIds = implode(",", $id);
 
-        $getCharacters = $this->client->get($this->url . "/character/$characterIds");
-        $charactersJson = $getCharacters->getBody()->getContents();
+        if (!Cache::has('episode_' . $number . '_characters')) {
+            $getCharacters = $this->client->get($this->url . "/character/$characterIds");
+            $charactersJson = $getCharacters->getBody()->getContents();
+        } else {
+            $charactersJson = Cache::get('episode_' . $number . '_characters');
+        }
+
         $characters = json_decode($charactersJson);
         $pages = $characters->info;
 
         foreach ($characters as $person) {
-            $firstEpisode = $this->client->get($person->episode[0]);
-            $firstEpisodeJson = $firstEpisode->getBody()->getContents();
+            if (!Cache::has($person->name . 'episode_1')) {
+                $firstEpisode = $this->client->get($person->episode[0]);
+                $firstEpisodeJson = $firstEpisode->getBody()->getContents();
+            } else {
+                $firstEpisodeJson = Cache::get($person->name . 'episode_1');
+            }
+
             $episodeTitle = json_decode($firstEpisodeJson);
 
             $collected[] = new Character(
@@ -322,9 +354,13 @@ class ApiClient
     public function locationResidents(string $number): array
     {
         $collected = [];
+        if (!Cache::has('characters_location' . $number)) {
+            $client = $this->client->get($this->url . "/location/$number");
+            $locationJson = $client->getBody()->getContents();
+        } else {
+            $locationJson = Cache::get('characters_location_' . $number);
+        }
 
-        $client = $this->client->get($this->url . "/location/$number");
-        $locationJson = $client->getBody()->getContents();
         $location = json_decode($locationJson);
 
         $id = [];
@@ -333,14 +369,26 @@ class ApiClient
         }
         $characterIds = implode(",", $id);
 
-        $getCharacters = $this->client->get($this->url . "character/$characterIds");
-        $charactersJson = $getCharacters->getBody()->getContents();
+        if (!Cache::has('currently_in_location_' . $number)) {
+            $getCharacters = $this->client->get($this->url . "/character/$characterIds");
+            $charactersJson = $getCharacters->getBody()->getContents();
+            Cache::save('currently_in_location_' . $number, $charactersJson);
+        } else {
+            $charactersJson = Cache::get('currently_in_location_' . $number);
+        }
+
         $characters = json_decode($charactersJson);
         $pages = $characters->info;
 
         foreach ($characters as $person) {
-            $firstEpisode = $this->client->get($person->episode[0]);
-            $firstEpisodeJson = $firstEpisode->getBody()->getContents();
+            if (!Cache::has('first_character_episode')) {
+                $firstEpisode = $this->client->get($person->episode[0]);
+                $firstEpisodeJson = $firstEpisode->getBody()->getContents();
+                Cache::save('first_character_episode', $firstEpisodeJson);
+            } else {
+                $firstEpisodeJson = Cache::get('first_character_episode');
+            }
+
             $episodeTitle = json_decode($firstEpisodeJson);
 
             $collected[] = new Character(
@@ -361,8 +409,14 @@ class ApiClient
 
     public function selectedEpisode(string $number): Episode
     {
-        $client = $this->client->get($this->url . "/episode/$number");
-        $episodesJson = $client->getBody()->getContents();
+        if (!Cache::has('episode_number_' . $number)) {
+            $client = $this->client->get($this->url . "/episode/$number");
+            $episodesJson = $client->getBody()->getContents();
+            Cache::save('episode_number_' . $number, $episodesJson);
+        } else {
+            $episodesJson = Cache::get('episode_number_' . $number);
+        }
+
         $episodes = json_decode($episodesJson);
 
         return new Episode(
@@ -377,8 +431,14 @@ class ApiClient
 
     public function selectedLocation(string $number): Location
     {
-        $client = $this->client->get($this->url . "/location/$number");
-        $locationJson = $client->getBody()->getContents();
+        if (!Cache::has('location_number_' . $number)) {
+            $client = $this->client->get($this->url . "/location/$number");
+            $locationJson = $client->getBody()->getContents();
+            Cache::save('location_number_' . $number, $locationJson);
+        } else {
+            $locationJson = Cache::get('location_number_' . $number);
+        }
+
         $location = json_decode($locationJson);
 
         return new Location(

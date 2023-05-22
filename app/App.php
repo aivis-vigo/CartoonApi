@@ -24,7 +24,6 @@ class App
             $renderer = new Renderer('../app/Views');
             echo $renderer->render($response);
         } elseif (isset($_GET["episodes"])) {
-            echo "works";
             $response = Router::response();
             $renderer = new Renderer('../app/Views');
             echo $renderer->render($response);

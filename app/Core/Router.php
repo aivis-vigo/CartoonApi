@@ -15,12 +15,12 @@ class Router
         $dispatcher = simpleDispatcher(function (FastRoute\RouteCollector $router) {
             $router->addRoute('GET', '/', [CharacterController::class, 'index']);
             $router->addRoute('GET', '/episodes', [EpisodeController::class, 'allEpisodes']);
-            $router->addRoute('GET', '/episode[/{title}]', [EpisodeController::class, 'selectEpisode']);
+            $router->addRoute('GET', '/episodes/{id:\d+}', [EpisodeController::class, 'selectEpisode']);
             $router->addRoute('GET', '/locations', [LocationController::class, 'allLocations']);
-            $router->addRoute('GET', '/location[/{title}]', [LocationController::class, 'selectLocation']);
+            $router->addRoute('GET', '/locations/{id:\d+}', [LocationController::class, 'selectLocation']);
             $router->addRoute('GET', '/characters', [CharacterController::class, 'allCharacters']);
             $router->addRoute('GET', '/allCharacters', [CharacterController::class, 'allCharacters']);
-            $router->addRoute('GET', '/?page[/{title}]', [CharacterController::class, 'changePage']);
+            $router->addRoute('GET', '/?page/{id:\d+}', [CharacterController::class, 'changePage']);
         });
 
         // Fetch method and URI from somewhere
@@ -48,7 +48,7 @@ class Router
 
                 if (!empty($vars)) {
                     /** @var TwigView $response */
-                    return (new $controllerName)->{$methodName}($vars['title']);
+                    return (new $controllerName)->{$methodName}($vars['id']);
                 }
 
                 /** @var TwigView $response */

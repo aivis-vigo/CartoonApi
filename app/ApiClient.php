@@ -13,7 +13,7 @@ use GuzzleHttp\Exception\GuzzleException;
 class ApiClient
 {
     private Client $client;
-    private string $url = "https://rickandmortyapi.com/api/";
+    private string $url = "https://rickandmortyapi.com/api";
 
     public function __construct()
     {
@@ -26,7 +26,7 @@ class ApiClient
             $collected = [];
 
             if (!Cache::has('randomSelect')) {
-                $response = $this->client->get($this->url . "character/" . $this->randomlySelected());
+                $response = $this->client->get($this->url . "/character/" . $this->randomlySelected());
                 $responseJson = $response->getBody()->getContents();
                 Cache::save('randomSelect', $responseJson);
             } else {
@@ -73,7 +73,7 @@ class ApiClient
             $collected = [];
 
             if (!Cache::has('characters')) {
-                $response = $this->client->get($this->url . "character/");
+                $response = $this->client->get($this->url . "/character/");
                 $responseJson = $response->getBody()->getContents();
                 Cache::save('characters', $responseJson);
             } else {
@@ -124,7 +124,7 @@ class ApiClient
             $collected = [];
             if (!Cache::has($name)) {
                 $query = "?name=$name&status=$status&species=$species";
-                $response = $this->client->get($this->url . "character/" . $query);
+                $response = $this->client->get($this->url . "/character/" . $query);
                 $responseJson = $response->getBody()->getContents();
                 Cache::save($name . "_" . $status . "_" . $species, $responseJson);
             } else {
@@ -169,7 +169,7 @@ class ApiClient
     {
         try {
             $collected = [];
-            $client = $this->client->get($this->url . "character/?page=$change");
+            $client = $this->client->get($this->url . "/character/?page=$change");
             $characters = json_decode($client->getBody()->getContents());
             $pages = $characters->info;
 
@@ -201,7 +201,7 @@ class ApiClient
     {
         try {
             $collected = [];
-            $client = $this->client->get($this->url . "location/$number");
+            $client = $this->client->get($this->url . "/location/$number");
             $characters = json_decode($client->getBody()->getContents());
             $pages = $characters->info;
 
@@ -232,7 +232,7 @@ class ApiClient
     public function fetchEpisodes(): array
     {
         $collected = [];
-        $client = $this->client->get($this->url . "episode");
+        $client = $this->client->get($this->url . "/episode");
         $episodesJson = $client->getBody()->getContents();
         $episodes = json_decode($episodesJson);
         $pages = $episodes->info;
@@ -254,7 +254,7 @@ class ApiClient
     {
         $collected = [];
 
-        $client = $this->client->get($this->url . "location");
+        $client = $this->client->get($this->url . "/location");
         $locationsJson = $client->getBody()->getContents();
         $locations = json_decode($locationsJson);
         $pages = $locations->info;
@@ -275,7 +275,7 @@ class ApiClient
     {
         $collected = [];
 
-        $client = $this->client->get($this->url . "episode/$number");
+        $client = $this->client->get($this->url . "/episode/$number");
         $episodesJson = $client->getBody()->getContents();
         $episodes = json_decode($episodesJson);
 
@@ -285,7 +285,7 @@ class ApiClient
         }
         $characterIds = implode(",", $id);
 
-        $getCharacters = $this->client->get($this->url . "character/$characterIds");
+        $getCharacters = $this->client->get($this->url . "/character/$characterIds");
         $charactersJson = $getCharacters->getBody()->getContents();
         $characters = json_decode($charactersJson);
         $pages = $characters->info;
@@ -315,7 +315,7 @@ class ApiClient
     {
         $collected = [];
 
-        $client = $this->client->get($this->url . "location/$number");
+        $client = $this->client->get($this->url . "/location/$number");
         $locationJson = $client->getBody()->getContents();
         $location = json_decode($locationJson);
 
@@ -353,7 +353,7 @@ class ApiClient
 
     public function selectedEpisode(string $number): Episode
     {
-        $client = $this->client->get($this->url . "episode/$number");
+        $client = $this->client->get($this->url . "/episode/$number");
         $episodesJson = $client->getBody()->getContents();
         $episodes = json_decode($episodesJson);
 
@@ -369,7 +369,7 @@ class ApiClient
 
     public function selectedLocation(string $number): Location
     {
-        $client = $this->client->get($this->url . "location/$number");
+        $client = $this->client->get($this->url . "/location/$number");
         $locationJson = $client->getBody()->getContents();
         $location = json_decode($locationJson);
 
@@ -389,7 +389,7 @@ class ApiClient
             $start = 0;
             $end = 6;
 
-            $data = $this->client->get($this->url . "character/");
+            $data = $this->client->get($this->url . "/character/");
             $allCharacters = json_decode($data->getBody()->getContents());
 
             $firstCharacterId = $allCharacters->results[0]->id;

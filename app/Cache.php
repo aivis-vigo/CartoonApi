@@ -40,6 +40,6 @@ class Cache
 
         $content = json_decode(file_get_contents('../Cache/' . $key));
 
-        return Carbon::parse()->gt($content->expires_at) < $content->content;
+        return Carbon::parse()->gt($content->expires_at);
     }
 }

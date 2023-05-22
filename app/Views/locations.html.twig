@@ -1,85 +1,45 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link rel="stylesheet" href="../style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Rick&Morty</title>
-</head>
-<body>
+{% extends 'base.html.twig' %}
 
-<div class="navigation">
-    <nav>
-        <div class="image">
-            <img src="../pngwing.com.png" alt="logo">
-        </div>
+{% block title %}TVNET{% endblock %}
+{% block head %}
+    {{ parent() }}
+{% endblock %}
 
-        <ul>
-            <li>
-                <a href="/">Home</a>
-            </li>
-
-            <li>
-                <a href="/allCharacters">Characters</a>
-            </li>
-
-            <li>
-                <a href="/episodes">Episodes</a>
-            </li>
-
-            <li>
-                <a href="/locations">Locations</a>
-            </li>
-        </ul>
-    </nav>
-</div>
-
-<main>
-    <div class="episodes">
-        <div class="episode-column">
-            {% if locations is defined %}
-                {% for location in locations %}
-                    <div class="columns">
-                        <div class="container">
-                            <div class="center-episode">
-                                <a href="location/{{ location.id }}">
-                                    {{ location.name }}
-                                </a>
+{% block content %}
+    {{ parent() }}
+    <main>
+        <div class="episodes">
+            <div class="episode-column">
+                {% if locations is defined %}
+                    {% for location in locations %}
+                        <div class="columns">
+                            <div class="container">
+                                <div class="center-episode">
+                                    <a href="location/{{ location.id }}">
+                                        {{ location.name }}
+                                    </a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </div>
-    </div>
-
-    <div class="center-arrows">
-        <div class="arrows">
-            <div class="prev">
-                <a href="{{ pages.previousPage }}">
-                    &#xab;
-                </a>
-            </div>
-
-            <div class="next">
-                <a href="{{ pages.nextPage }}">
-                    &#xbb;
-                </a>
+                    {% endfor %}
+                {% endif %}
             </div>
         </div>
-    </div>
-</main>
 
-<footer>
-    <div class="footer-info">
-        <a href="https://rickandmortyapi.com/api/character">Characters: 826</a>
-        <a href="https://rickandmortyapi.com/api/location">Locations: 126</a>
-        <a href="https://rickandmortyapi.com/api/episode">Episodes: 51</a>
-    </div>
-</footer>
+        <div class="center-arrows">
+            <div class="arrows">
+                <div class="prev">
+                    <a href="{{ pages.previousPage }}">
+                        &#xab;
+                    </a>
+                </div>
 
-</body>
-</html>
+                <div class="next">
+                    <a href="{{ pages.nextPage }}">
+                        &#xbb;
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
